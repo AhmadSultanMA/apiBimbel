@@ -25,28 +25,10 @@ class AuthController extends Controller
         
     }
 
-    public function userKursus($idKursus)
-    {
-        $kursusAcc = KursusAcc::get();
-            
-        foreach ($kursusAcc as $item){
-            if($item->kursus_id == $idKursus){
-                $res[] = [
-                    'user' => $data = User::where('id',$item->user_id)->get(),    
-                ];
-            }
-        }
-        return response()->json([
-            'status' => 'berhasil',
-            'data' => $res,
-        ]);
-    }
-
     public function userAccess(Request $request)
     {
         $user = User::where('email',$request->email)->first();
 
-        // Kodingan dibawah ini berfungsi agar user hanya bisa mengaccess class yang ia daftarkan
         if(count($user->kursusAcc)===0){
             return response()->json([
                'data' => [],
@@ -69,11 +51,6 @@ class AuthController extends Controller
     {
         $data = new KursusAcc;
 
-        if(count(KursusAcc::where('user_id',$request->user_id))===24){
-            return response()->json([
-               'status' => 'SKS sudah 24',
-            ]);
-        }else{
         $data->user_id = $request->user_id;
         $data->kursus_id = $request->kursus_id;
         $data->save();
@@ -82,7 +59,6 @@ class AuthController extends Controller
             'status' => 'berhasil',
             'data' => $data,
         ],200);
-    }
     }
 
     public function deleteAccess($idUser, $idKursus)
@@ -264,32 +240,6 @@ class AuthController extends Controller
                     'message' => 'Berhasil ganti password',
                 ],200);
         }
-    }
-
-    public function editProfile(Request $request)
-    {
-        $data = User::where('id',$request->id)->first();
-         if ($request->file('gambar') === null){
-            $data->name = $request->name;
-            $data->save();
-            return response()->json([
-                'status' => 'berhasil',
-                'data' => $data,
-            ],200);
-         }else{
-            $file  = $request->file('gambar');
-            $image = $data->gambar;
-            $result = CloudinaryStorage::replace($image, $file->getRealPath(), $file->getClientOriginalName());
-
-            $data->name = $request->name;
-            $data->gambar = $result;
-            $data->save();
-            return response()->json([
-                'status' => 'berhasil',
-                'data' => $data,
-            ],200);
-         }
-            
     }
 
     public function deleteUser($id)

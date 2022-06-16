@@ -33,8 +33,7 @@ class JawabanController extends Controller
     {
         $data = new Jawaban;
 
-            $image  = $request->file('gambar');
-            $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
+            $result = CloudinaryStorage::upload($request->file('gambar')->getRealPath(), $request->file('gambar')->getClientOriginalName());
 
             $data->kursus_id = $request->idKursus;
             $data->bab_id = $request->idBab;

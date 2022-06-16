@@ -25,83 +25,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-
-// Auth
-
-// Link untuk register user ke system
-Route::post('/register', [AuthController::class, 'register']);
-
-// Link untuk register admin ke system atau bisa juga dari AdminSeeder.php
-Route::post('/adminrandombikinregisterpokoknya', [AuthController::class, 'registerAdmin']);
-
-// Link untuk login
-Route::post('/login',[AuthController::class, 'login']);
-
-// Link untuk edit password
-Route::post('/changePassword',[AuthController::class, 'editPassword']);
-
-// Link untuk edit profile
-Route::post('/editProfile',[AuthController::class, 'editProfile']);
-
-// Link untuk membuat access pada class yang dituju oleh user
-Route::post('/createAccess',[AuthController::class, 'createAccess']);
-
-// Link untuk menghapus access pada class yang sudah didaftarkan
-Route::post('/deleteAccess/{idUser}/{idKursus}',[AuthController::class, 'deleteAccess']);
-
-// Link untuk melihat peserta yang terdaftar pada class
-Route::get('/userkursus/{idKursus}',[AuthController::class, 'userKursus']);
-
-// Link Untuk melihat class
-Route::get('/kursus',[KursusController::class, 'showKursus']);
-
-// Link untuk membuat class
-Route::post('/saveKursus', [KursusController::class, 'saveKursus']);
-
-// Link untuk edit class
-Route::post('/updateKursus', [KursusController::class, 'updateKursus']);
-
-// Link untuk menghapus class
-Route::post('/deleteKursus/{id}',[KursusController::class, 'deleteKursus']);
-
-// Link untuk melihat kursus
-Route::get('/bab/{idKursus}',[BabController::class, 'showBab']);
-
-// Link untuk edit kursus
-Route::post('/updateBab', [BabController::class, 'updateBab']);
-
-// Link untuk membuat kursus
-Route::post('/saveBab', [BabController::class, 'saveBab']);
-
-// Link untuk menghapus kursus
-
-// Kodingan dibawah ini untuk membuat middleware, berhubung saya membuatnya api maka untuk saat ini blom di pakai
 // Route::middleware(['auth:sanctum'])->group(function(){
 //     Route::middleware(['role:admin'])->group(function(){
         
 //     });
 // });
-
-
-
-
-// ---------------------------------------------------------------------------------------------------
-Route::post('/deleteBab/{id}',[BabController::class, 'deleteBab']);
+// Auth
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/admindattebayobikinregisterpokoknya', [AuthController::class, 'registerAdmin']);
+Route::post('/login',[AuthController::class, 'login']);
+Route::post('/changePassword',[AuthController::class, 'editPassword']);
 Route::post('/deleteUser/{id}',[AuthController::class, 'deleteUser']);
 Route::get('/user',[AuthController::class, 'showUser']);
 Route::post('/userAccess',[AuthController::class, 'userAccess']);
-
+Route::post('/createAccess',[AuthController::class, 'createAccess']);
+Route::post('/deleteAccess/{idUser}/{idKursus}',[AuthController::class, 'deleteAccess']);
 
 // Kursus
-
-
-
-
+Route::get('/kursus',[KursusController::class, 'showKursus']);
+Route::post('/updateKursus', [KursusController::class, 'updateKursus']);
+Route::post('/saveKursus', [KursusController::class, 'saveKursus']);
+Route::post('/deleteKursus/{id}',[KursusController::class, 'deleteKursus']);
 
 // Bab
-
-
+Route::get('/bab/{idKursus}',[BabController::class, 'showBab']);
+Route::post('/updateBab', [BabController::class, 'updateBab']);
+Route::post('/saveBab', [BabController::class, 'saveBab']);
+Route::post('/deleteBab/{id}',[BabController::class, 'deleteBab']);
 
 // Materi
 Route::get('/materi/{idKursus}/{idBab}',[MateriController::class, 'showMateri']);
