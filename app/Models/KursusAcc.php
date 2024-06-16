@@ -23,6 +23,6 @@ class KursusAcc extends Model
 
     public function kursus()
     {
-        return $this->belongsTo(User::class,'kursus_id');
+        return $this->belongsTo(Kursus::class,'kursus_id');
     }
 }
